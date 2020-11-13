@@ -1,0 +1,27 @@
+{
+  "name": "flickr_albums",
+  "version": "1.0.0",
+  "description": "",
+  "main": "albums.js",
+  "scripts": {
+    "start": "node albums.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poff-bnff/flickr-albums.git"
+  },
+  "author": "michelek",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/poff-bnff/flickr-albums/issues"
+  },
+  "homepage": "https://github.com/poff-bnff/flickr-albums#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "es6-promise": "^4.2.8",
+    "express": "^4.17.1",
+    "isomorphic-fetch": "^3.0.0",
+    "node-html-parser": "^2.0.0"
+  }
+}
