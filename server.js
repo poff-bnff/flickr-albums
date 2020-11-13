@@ -1,8 +1,6 @@
-const util = require('util')
 const HTMLparser = require('node-html-parser') // https://www.npmjs.com/package/node-html-parser
 const http = require('http')
 const https = require('https')
-const { pathToFileURL } = require('url')
 const SERVER_PORT = 3001
 
 const FETCH_URL = 'https://www.flickr.com/photos/poffihunt/albums'
@@ -36,17 +34,15 @@ const fetch = async (url, result_cb) => {
     const contentType = res.headers['content-type']
   
     let error
-    // Any 2xx status code signals a successful response but
-    // here we're only checking for 200.
     if (statusCode !== 200) {
       error = new Error('Request Failed.\n' +
                         `Status Code: ${statusCode}`)
     } else if (contentType !== 'text/html; charset=utf-8') {
       error = new Error('Invalid content-type.\n' +
-                        `Expected text/html; charset=utf-8 but received ${contentType}`)
+                        `Expected "text/html; charset=utf-8" but received "${contentType}"`)
     }
     if (error) {
-      console.error({'error.message': error.message, error})
+      console.error({'message': error.message, error})
       // Consume response data to free up memory
       res.resume()
       return
@@ -107,4 +103,3 @@ function keyvalues(text, search_key) {
   })
   return return_o[search_key]
 }
-
