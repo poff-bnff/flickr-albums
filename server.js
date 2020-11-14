@@ -8,13 +8,12 @@ const FETCH_URL = 'https://www.flickr.com/photos/poffihunt/albums'
 
 const main = async () => {
   try {
-
     const server = http.createServer(async (req, res) => {
       res.statusCode = 200
       res.setHeader('Content-Type', 'application/json')
+      res.setHeader('Access-Control-Allow-Origin', '*')
 
       await fetch(FETCH_URL, res)
-      
     })
 
     server.listen(SERVER_PORT, () => {
@@ -35,16 +34,13 @@ const fetch = async (url, result_cb) => {
   
     let error
     if (statusCode !== 200) {
-      error = new Error('Request Failed.\n' +
-                        `Status Code: ${statusCode}`)
+      error = new Error(`Request Failed.\nStatus Code: ${statusCode}`)
     } else if (contentType !== 'text/html; charset=utf-8') {
-      error = new Error('Invalid content-type.\n' +
-                        `Expected "text/html; charset=utf-8" but received "${contentType}"`)
+      error = new Error(`Invalid content-type.\nExpected "text/html; charset=utf-8" but received "${contentType}"`)
     }
     if (error) {
       console.error({'message': error.message, error})
-      // Consume response data to free up memory
-      res.resume()
+      res.resume() // Consume response data to free up memory
       return
     }
   
@@ -52,10 +48,8 @@ const fetch = async (url, result_cb) => {
     let rawData = ''
     res.on('data', (chunk) => { 
       rawData += chunk 
-      // console.log(chunk)
     })
     res.on('end', () => {
-      // console.log(rawData)
       const options = {
         lowerCaseTagName: false,  // convert tag name to lower case (hurt performance heavily)
         comment: false,            // retrieve comments (hurt performance slightly)
@@ -66,9 +60,7 @@ const fetch = async (url, result_cb) => {
           pre: true			// keep text content when parsing
         }
       }
-      // https://www.npmjs.com/package/node-html-parser
-      const root = HTMLparser.parse(rawData, options)
-      // console.log(root)
+      const root = HTMLparser.parse(rawData, options) // https://www.npmjs.com/package/node-html-parser
       const album_list = []
       const photo_list = root.querySelector('.photo-list-view')
       while(child = photo_list.firstChild) {

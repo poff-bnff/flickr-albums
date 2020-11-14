@@ -1,10 +1,10 @@
 {
   "name": "flickr_albums",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "albums.js",
   "scripts": {
-    "start": "node albums.js",
+    "start": "node --max-http-header-size 15000 albums.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
