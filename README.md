@@ -1,5 +1,5 @@
 # flickr-albums
 
-live at http://192.241.148.13/albums
+live at https://chat.poff.ee/albums
 
 albums from https://www.flickr.com/photos/poffihunt/albums
